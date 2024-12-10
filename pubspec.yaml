@@ -1,0 +1,23 @@
+name: esp32_app
+description: "Application visant a interragir avec l'api de notre esp32"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.2
+  openapi_generator_annotations: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  openapi_generator: ^6.0.0
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true

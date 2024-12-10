@@ -1,0 +1,116 @@
+openapi: 3.1.0
+
+info:
+  title: "hai912i-esp32-webserver"
+  description: "Un serveur web sur ESP32 permettant le contrôle et la récupération de données en temps réel."
+  version: "0c04295"
+
+servers:
+  - url: "http://192.168.0.19"
+
+tags:
+  - name: Metadata
+    description: Des requêtes qui permettent de récupérer des informations autour du serveur web (et non pas d'effectuer des actions !)
+
+paths:
+  /v1/metadata:
+    get:
+      tags:
+        - Metadata
+      summary: "Récupère les métadonnées de l'ESP32."
+      description: "Récupère des métadonnées (notamment uptime) de l'ESP32."
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Metadata"
+          description: "desc Metadata"
+  /v1/sensors/photocell:
+    get:
+      tags:
+        - Sensors
+      summary: "Récupère la valeur actuelle pour le sensor photocell"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericSensor"
+          description: "desc sensors"
+  /v1/minuteur/activate:
+    post:
+      tags:
+        - Minuteur
+      summary: "Démare un minuteur"
+      description: "Envoie une requête pour activer le minteur après un délai (`delay`) et pendant une durée spécifiée (`duration`)."
+      parameters:
+        - name: delay
+          in: query
+          required: true
+          description: "Délai avant d'activer le buzzer (en millisecondes)."
+          schema:
+            type: integer
+        - name: duration
+          in: query
+          required: true
+          description: "Durée pendant laquelle le buzzer sonne (en millisecondes)."
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Success"
+          description: "desc minuteur 200"
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: "desc minteur 400 "
+  /v1/minuteur/stop:
+    post:
+      tags:
+        - Minuteur
+      summary: "Arrête le minuteur"
+      description: "Cette requête arrête le minuteur immédiatement, cela inclut arrêter un buzzer planifier."
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Success"
+          description: "desc stop minteur"
+
+components:
+  schemas:
+    Metadata:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        uptime:
+          type: integer
+    GenericSensor:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: integer
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        message:
+          type: string

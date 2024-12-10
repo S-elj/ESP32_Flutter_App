@@ -1,0 +1,5 @@
+targets:
+  $default:
+    builders:
+      openapi:
+        enabled: true
