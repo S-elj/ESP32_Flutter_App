@@ -20,6 +20,15 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
+                  MaterialPageRoute(builder: (context) => const MetadataPage()),
+                );
+              },
+              child: const Text('Informations machine'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
                   MaterialPageRoute(builder: (context) => const SensorsPage()),
                 );
               },
@@ -33,18 +42,9 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const MinuteurPage()),
                 );
               },
-              child: const Text('Minuteur'),
+              child: const Text('Alarme'),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MetadataPage()),
-                );
-              },
-              child: const Text('Métadonnées'),
-            ),
           ],
         ),
       ),
