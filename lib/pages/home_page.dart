@@ -1,28 +1,52 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'sensors_page.dart';
+import 'minuteur_page.dart';
+import 'metadata_page.dart';
 
-import '../api/api_service.dart';
-
-class MyHomePage extends StatelessWidget {
-  final ApiService apiService = ApiService();
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('API Example')),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: apiService.fetchData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Erreur: ${snapshot.error}'));
-          } else {
-            // Affiche les données récupérées
-            var data = snapshot.data;
-            return Center(child: Text('Données: ${data.toString()}'));
-          }
-        },
+      appBar: AppBar(
+        title: const Text('ESP32 Controller'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SensorsPage()),
+                );
+              },
+              child: const Text('Capteurs'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MinuteurPage()),
+                );
+              },
+              child: const Text('Minuteur'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MetadataPage()),
+                );
+              },
+              child: const Text('Métadonnées'),
+            ),
+          ],
+        ),
       ),
     );
   }

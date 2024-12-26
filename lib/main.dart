@@ -1,19 +1,23 @@
-import 'package:esp32_app/pages/home_page.dart';
+import 'pages/home_page.dart';
 import 'package:flutter/material.dart';
 
+
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter API test',
-      home: MyHomePage(),
+      title: 'ESP32 Controller',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
     );
   }
 }
-
